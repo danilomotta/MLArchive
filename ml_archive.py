@@ -2,6 +2,7 @@ import pandas as pd
 from datetime import datetime
 from sklearn.base import BaseEstimator
 import pickle
+import os
 
 class MLArchive:
     """MLArchive class to hold the training models history.
@@ -162,7 +163,10 @@ class MLArchive:
         filename: str
             File to write on.
         """
-        pickle.dump(self, open(filename, "wb"))
+        folder = self.__model_path
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+        pickle.dump(self, open(folder+filename, "wb"))
 
     def load_archive(self, filename: str) -> None:
         """
@@ -174,7 +178,7 @@ class MLArchive:
             File to load from.
         """
         data = pickle.load(open(filename, "rb"))
-        self.__model_path = data.get_path()
+        self.__model_path = os.path.dirname(os.path.abspath(filename))
         self.__ranked_models = \
             data.get_ranked_models(cols = range(len(self.SCHEMA)))
 
