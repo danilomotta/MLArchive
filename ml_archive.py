@@ -93,7 +93,7 @@ class MLArchive:
         model['params'] = params    #TODO convert this to json
         model['technique'] = tech
         model['date'] = now.strftime("%d/%m/%Y %H:%M:%S")
-        model['id'] = now.strftime("%d%m%Y%H%M%S")
+        model['id'] = now.strftime("%d%m%Y%H%M%S%f")[:-3]
 
         self.__update_rank(model)
 
