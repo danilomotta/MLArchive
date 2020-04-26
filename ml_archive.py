@@ -26,7 +26,7 @@ class MLArchive:
 
     def save_model(self, mod: object, metric: str, train_res: float,
             test_res: float, devel_res: float = None,
-            train_samples: int = None, test_samples: int = None, 
+            train_samples: int = None, test_samples: int = None,
             train_hist: dict = None, columns: list = None,
             packages: str = None) -> None:
 
@@ -99,13 +99,12 @@ class MLArchive:
 
     def __update_rank(self, model: dict) -> None:
         """ 
-        This is a method to internally update our model
-        archive and ranks.
+        This is a method to internally update our model archive and ranks.
 
         Parameters
         ----------
         model: dict
-            model data to save.
+            model data to be saved.
         """
         df = self.__ranked_models
         df = df.append(model, ignore_index=True)
@@ -118,24 +117,24 @@ class MLArchive:
 
     def load_model(self, id: str) -> object:
         """ 
-        This method load a previously trained model from the
-        archive using it's id.
+        This method load a previously trained model from the archive using 
+        it's ID.
 
         Parameters
         ----------
         id: str
-            id of the model to load.
+            ID of the model to be loaded.
         """
         # TODO
 
     def load_best_model(self) -> object:
         """
-        Load a previously trained model with the best result
-        in the test set.
+        Load a previously trained model with the top result in the test set.
         """
         return self.load_model(self.__ranked_models.iloc[0, 'id'])
 
-    def get_ranked_models(self, lim: int = None, cols = range(8)) -> pd.DataFrame:
+    def get_ranked_models(self, lim: int = None, cols: list = range(8)
+                          ) -> pd.DataFrame:
         """
         Retrieve the registry of trained models.
         
@@ -178,3 +177,27 @@ class MLArchive:
         self.__model_path = data.get_path()
         self.__ranked_models = \
             data.get_ranked_models(cols = range(len(self.SCHEMA)))
+
+    def plot_history(self, params: dict = None) -> None:
+        """
+        Plot the evolution of the project by time.
+
+        Parameters
+        ----------
+        params: dict
+            Plot custom parameters.
+        """
+        # TODO
+
+    def plot_model_learning_curve(self, id: str, params: dict = None) -> None:
+        """
+        Plot the learning curve of the selected model.
+
+        Parameters
+        ----------
+        id: str
+            ID of the model.
+        params: dict
+            Plot custom parameters.
+        """
+        # TODO
