@@ -2,6 +2,9 @@ import pandas as pd
 from datetime import datetime
 from sklearn.base import BaseEstimator
 import pickle
+import seaborn as sns
+import matplotlib.pyplot as plt
+
 import os
 
 class MLArchive:
@@ -184,14 +187,17 @@ class MLArchive:
 
     def plot_history(self, params: dict = None) -> None:
         """
-        Plot the evolution of the project by time.
+        Plot the evolution of the project over time.
 
         Parameters
         ----------
         params: dict
             Plot custom parameters.
         """
-        # TODO
+        ax = sns.lineplot(x='date', y='test_res', data=self.__ranked_models)
+        metric = df['metric'].unique().values
+        ax.set_title('Model evolution: ' + metric + ' over time')
+        plt.show()
 
     def plot_model_learning_curve(self, id: str, params: dict = None) -> None:
         """
