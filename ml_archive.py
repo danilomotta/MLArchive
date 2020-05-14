@@ -194,10 +194,20 @@ class MLArchive:
         params: dict
             Plot custom parameters.
         """
+
+        if params:
+            if params['dark']:
+                sns.set(style="ticks", context="talk")
+                plt.style.use("dark_background")
+                custom_style = {'axes.labelcolor': 'white',
+                                'xtick.color': 'white',
+                                'ytick.color': 'white'}
+                sns.set_style("darkgrid", rc=custom_style)
+        
         ax = sns.lineplot(x='date', y='test_res', data=self.__ranked_models)
-        metric = df['metric'].unique().values
-        ax.set_title('Model evolution: ' + metric + ' over time')
-        plt.show()
+        metric = self.__ranked_models['metric'].unique()
+        ax.set_title(label='Model evolution: ' + metric + ' over time')
+        return ax
 
     def plot_model_learning_curve(self, id: str, params: dict = None) -> None:
         """
